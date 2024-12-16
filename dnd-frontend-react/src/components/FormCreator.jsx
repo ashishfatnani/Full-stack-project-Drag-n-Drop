@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import DraggableForm from "./DraggableForm";
@@ -6,21 +6,21 @@ import PreField from "./PreField";
 import apiService from "../api/apiService";
 import { message } from "antd";
 
-const FormCreator = ({ onFormCreated, editingForm, onEditComplete }) => {
+const FormCreator = ({ onFormCreated, editingForm }) => {
   const [formName, setFormName] = useState("");
   const [formFields, setFormFields] = useState([]);
 
-  useEffect(() => {
-    if (editingForm) {
-      setFormName(editingForm.form_name);
-      console.log(
-        "✌️JSON.parse(editingForm.form_data --->",
-        editingForm.form_data.fields
-      );
+  // useEffect(() => {
+  //   if (editingForm) {
+  //     setFormName(editingForm.form_name);
+  //     console.log(
+  //       "✌️JSON.parse(editingForm.form_data --->",
+  //       editingForm.form_data.fields
+  //     );
 
-      // setFormFields(JSON.parse(editingForm.form_data)); // Parse JSON data into fields
-    }
-  }, [editingForm]);
+  //     // setFormFields(JSON.parse(editingForm.form_data)); // Parse JSON data into fields
+  //   }
+  // }, [editingForm]);
 
   const handleSaveForm = async () => {
     if (!formName || formFields.length === 0) {
@@ -32,26 +32,29 @@ const FormCreator = ({ onFormCreated, editingForm, onEditComplete }) => {
       form_name: formName,
       form_data: { fields: formFields },
     };
-    if (editingForm) {
-      try {
-        await apiService.up(editingForm._id, formData);
-        message.success("Form updated successfully!");
-        onEditComplete();
-      } catch (error) {
-        message.error(error);
-      }
-    } else {
-      try {
-        await apiService.saveForm(formData);
-        message.success("Form saved successfully!");
-        const updatedForms = await apiService.getForms();
-        onFormCreated(updatedForms.data || []);
-      } catch (error) {
-        message.error(error);
-      }
+    // if (editingForm) {
+    //   try {
+    //     await apiService.up(editingForm._id, formData);
+    //     message.success("Form updated successfully!");
+    //     onEditComplete();
+    //   } catch (error) {
+    //     message.error(error);
+    //   }
+    // } else {
+
+    // }
+
+    try {
+      await apiService.saveForm(formData);
+      message.success("Form saved successfully!");
+      const updatedForms = await apiService.getForms();
+
+      onFormCreated(updatedForms || []);
+      setFormName("");
+      setFormFields([]);
+    } catch (error) {
+      message.error(error);
     }
-    setFormName("");
-    setFormFields([]);
   };
 
   return (

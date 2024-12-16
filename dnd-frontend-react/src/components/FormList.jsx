@@ -1,7 +1,14 @@
 import apiService from "../api/apiService";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { Spin } from "antd";
 
-const FormList = ({ forms, setForms, onEditForm }) => {
+const FormList = ({
+  forms,
+  setForms,
+  onEditForm,
+  isLoading,
+  setIsModalVisible,
+}) => {
   // const [forms, setForms] = useState([]);
 
   // useEffect(() => {
@@ -35,52 +42,55 @@ const FormList = ({ forms, setForms, onEditForm }) => {
 
   const handleEdit = (form) => {
     console.log("✌️form --->", form);
+    setIsModalVisible(true);
     onEditForm(form);
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Saved Forms</h2>
-      {forms.length === 0 ? (
-        <p>No forms available. Create a new form to see it listed here!</p>
-      ) : (
-        <ul style={styles.formList}>
-          {forms.map((form) => (
-            <li key={form._id} style={styles.formItem}>
-              <div style={styles.formDetails}>
-                <h3 style={styles.formName}>{form.form_name}</h3>
-                <p style={styles.createdAt}>
-                  Created: {new Date(form.createdAt).toLocaleDateString()}
-                </p>
-              </div>
-              <div style={styles.formData}>
-                {form.form_data.fields &&
-                  form.form_data.fields.map((field, ind) => (
-                    <div key={ind} style={styles.field}>
-                      <strong style={styles.label}>{field.label}: </strong>
-                      <span style={styles.value}>{field.value || "-"}</span>
-                    </div>
-                  ))}
-              </div>
-              <div style={styles.actionButtons}>
-                <button
-                  style={{ ...styles.button, ...styles.editButton }}
-                  onClick={() => handleEdit(form)}
-                >
-                  <FaEdit />
-                </button>
-                <button
-                  style={{ ...styles.button, ...styles.deleteButton }}
-                  onClick={() => handleDelete(form._id)}
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <Spin spinning={isLoading}>
+      <div style={styles.container}>
+        <h2 style={styles.title}>Saved Forms</h2>
+        {forms.length === 0 ? (
+          <p>No forms available. Create a new form to see it listed here!</p>
+        ) : (
+          <ul style={styles.formList}>
+            {forms.map((form) => (
+              <li key={form._id} style={styles.formItem}>
+                <div style={styles.formDetails}>
+                  <h3 style={styles.formName}>{form.form_name}</h3>
+                  <p style={styles.createdAt}>
+                    Created: {new Date(form.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+                <div style={styles.formData}>
+                  {form.form_data.fields &&
+                    form.form_data.fields.map((field, ind) => (
+                      <div key={ind} style={styles.field}>
+                        <strong style={styles.label}>{field.label}: </strong>
+                        <span style={styles.value}>{field.value || "-"}</span>
+                      </div>
+                    ))}
+                </div>
+                <div style={styles.actionButtons}>
+                  <button
+                    style={{ ...styles.button, ...styles.editButton }}
+                    onClick={() => handleEdit(form)}
+                  >
+                    <FaEdit />
+                  </button>
+                  <button
+                    style={{ ...styles.button, ...styles.deleteButton }}
+                    onClick={() => handleDelete(form._id)}
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </Spin>
   );
 };
 
