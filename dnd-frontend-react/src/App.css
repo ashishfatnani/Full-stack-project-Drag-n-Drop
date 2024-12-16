@@ -40,3 +40,57 @@
 .read-the-docs {
   color: #888;
 }
+
+.app {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.home {
+  text-align: center;
+}
+
+.form-creator {
+  margin: 20px 0;
+}
+
+.draggable-form {
+  border: 1px dashed #ccc;
+  padding: 20px;
+  min-height: 200px;
+  margin: 20px 0;
+}
+
+.input-field {
+  margin: 10px 0;
+}
+
+.input-field label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+.form-list button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.form-list button:hover {
+  background-color: darkred;
+}
+
