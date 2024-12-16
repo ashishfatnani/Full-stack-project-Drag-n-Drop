@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const formRoutes = require("./routes/formRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 // Initialize the app
 const app = express();
@@ -16,10 +17,8 @@ connectDB();
 // API routes
 app.use("/api/forms", formRoutes);
 
-// Root endpoint
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+// Authentication
+app.use("/", authRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
