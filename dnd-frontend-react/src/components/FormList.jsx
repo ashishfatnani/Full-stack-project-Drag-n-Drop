@@ -9,24 +9,10 @@ const FormList = ({
   isLoading,
   setIsModalVisible,
 }) => {
-  // const [forms, setForms] = useState([]);
-
-  // useEffect(() => {
-  //   fetchForms();
-  // }, []);
-
-  // const fetchForms = async () => {
-  //   try {
-  //     const response = await apiService.getForms();
-  //     console.log("✌️response --->", response);
-  //     setForms(response || []);
-  //   } catch (error) {
-  //     console.error("Error fetching forms:", error);
-  //   }
-  // };
-
+  /**
+   * Method to handle delete the form
+   */
   const handleDelete = async (id) => {
-    console.log("✌️id --->", id);
     if (!window.confirm("Are you sure you want to delete this form?")) {
       return;
     }
@@ -40,8 +26,10 @@ const FormList = ({
     }
   };
 
+  /**
+   * Method to open the Edit form
+   */
   const handleEdit = (form) => {
-    console.log("✌️form --->", form);
     setIsModalVisible(true);
     onEditForm(form);
   };

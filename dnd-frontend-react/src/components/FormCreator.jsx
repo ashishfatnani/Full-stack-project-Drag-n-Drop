@@ -10,45 +10,25 @@ const FormCreator = ({ onFormCreated, editingForm }) => {
   const [formName, setFormName] = useState("");
   const [formFields, setFormFields] = useState([]);
 
-  // useEffect(() => {
-  //   if (editingForm) {
-  //     setFormName(editingForm.form_name);
-  //     console.log(
-  //       "✌️JSON.parse(editingForm.form_data --->",
-  //       editingForm.form_data.fields
-  //     );
-
-  //     // setFormFields(JSON.parse(editingForm.form_data)); // Parse JSON data into fields
-  //   }
-  // }, [editingForm]);
-
+  /**
+   * Method to create a form
+   */
   const handleSaveForm = async () => {
     if (!formName || formFields.length === 0) {
       alert("Please provide a form name and add at least one field.");
       return;
     }
 
+    //aligning the data in this specific format for api call to BE
     const formData = {
       form_name: formName,
       form_data: { fields: formFields },
     };
-    // if (editingForm) {
-    //   try {
-    //     await apiService.up(editingForm._id, formData);
-    //     message.success("Form updated successfully!");
-    //     onEditComplete();
-    //   } catch (error) {
-    //     message.error(error);
-    //   }
-    // } else {
-
-    // }
 
     try {
       await apiService.saveForm(formData);
       message.success("Form saved successfully!");
       const updatedForms = await apiService.getForms();
-
       onFormCreated(updatedForms || []);
       setFormName("");
       setFormFields([]);

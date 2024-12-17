@@ -1,4 +1,3 @@
-
 const InputField = ({ field, onChange }) => {
   switch (field.type) {
     case "select":
@@ -57,10 +56,7 @@ const InputField = ({ field, onChange }) => {
       return (
         <div style={styles.inputField}>
           <label>{field.label}</label>
-          <input
-            type="date"
-            onChange={(e) => onChange(e.target.value)}
-          />
+          <input type="date" onChange={(e) => onChange(e.target.value)} />
         </div>
       );
     default:

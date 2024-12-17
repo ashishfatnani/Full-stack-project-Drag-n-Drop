@@ -1,16 +1,16 @@
 import { useDrag } from "react-dnd";
 
 const PreField = () => {
-    const fieldTypes = [
-        { type: "text", label: "Text Field" },
-        { type: "email", label: "Email Field" },
-        { type: "number", label: "Number Field" },
-        { type: "select", label: "Select Field" },
-        { type: "radio", label: "Radio Buttons" },
-        { type: "checkbox", label: "Checkbox" },
-        { type: "date", label: "Date Picker" },
-      ];
-    
+  //Pre defined inputs
+  const fieldTypes = [
+    { type: "text", label: "Text Field" },
+    { type: "email", label: "Email Field" },
+    { type: "number", label: "Number Field" },
+    { type: "select", label: "Select Field" },
+    { type: "radio", label: "Radio Buttons" },
+    { type: "checkbox", label: "Checkbox" },
+    { type: "date", label: "Date Picker" },
+  ];
 
   return (
     <div style={styles.fieldPalette}>
@@ -21,6 +21,9 @@ const PreField = () => {
   );
 };
 
+/**
+ * Method th tract the drag (dnd) package
+ */
 const DraggableField = ({ field }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "FIELD",
@@ -41,20 +44,19 @@ const DraggableField = ({ field }) => {
   );
 };
 const styles = {
-    fieldPalette: {
-      padding: "10px",
-      width: "250px",
-      border: "1px solid #ddd",
-      marginTop: "20px",
-    },
-    fieldItem: {
-      padding: "8px",
-      backgroundColor: "#f4f4f4",
-      border: "1px solid #ccc",
-      marginBottom: "10px",
-      cursor: "move",
-    },
-  };
-  
+  fieldPalette: {
+    padding: "10px",
+    width: "250px",
+    border: "1px solid #ddd",
+    marginTop: "20px",
+  },
+  fieldItem: {
+    padding: "8px",
+    backgroundColor: "#f4f4f4",
+    border: "1px solid #ccc",
+    marginBottom: "10px",
+    cursor: "move",
+  },
+};
 
 export default PreField;

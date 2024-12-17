@@ -1,14 +1,19 @@
-
 import { useDrop } from "react-dnd";
 import InputField from "./InputField";
 import { FaTrash } from "react-icons/fa";
 
 const DraggableForm = ({ formFields, setFormFields }) => {
+  /**
+   * Hook from dnd to drop an element
+   */
   const [, drop] = useDrop(() => ({
     accept: "FIELD",
     drop: (item) => addFieldToForm(item),
   }));
 
+  /**
+   * Adding fields to form from our prefilled tags
+   */
   const addFieldToForm = (field) => {
     setFormFields((prevFields) => [
       ...prevFields,
@@ -16,6 +21,9 @@ const DraggableForm = ({ formFields, setFormFields }) => {
     ]);
   };
 
+  /**
+   * Tract change in thr inputs
+   */
   const handleInputChange = (id, value) => {
     const updatedFields = formFields.map((field) =>
       field.id === id ? { ...field, value } : field
@@ -23,6 +31,9 @@ const DraggableForm = ({ formFields, setFormFields }) => {
     setFormFields(updatedFields);
   };
 
+  /**
+   * Handle delete operation from the canvas locally
+   */
   const handleDeleteField = (id) => {
     const updatedFields = formFields.filter((field) => field.id !== id);
     setFormFields(updatedFields);
@@ -73,8 +84,5 @@ const styles = {
     cursor: "pointer",
   },
 };
-
-
-
 
 export default DraggableForm;

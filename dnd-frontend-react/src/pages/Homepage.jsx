@@ -23,7 +23,6 @@ const Homepage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = useForm();
   const user = apiService.getCurrentUser();
-  console.log("✌️user --->", user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +56,6 @@ const Homepage = () => {
 
   // Show Modal to Edit Form
   const handleEditForm = (formValues) => {
-    console.log("✌️formValues --->", formValues);
     setEditingForm(formValues); // Set the form data for editing
     setIsModalVisible(true); // Show the modal
     form.setFieldsValue({
@@ -75,8 +73,6 @@ const Homepage = () => {
   const handleSubmit = async (values) => {
     try {
       const updatedFormData = convertToDesiredFormat(values);
-      console.log("✌️updatedFormData --->", updatedFormData);
-
       await apiService.updateForm(editingForm._id, updatedFormData); // Update the form via API
       message.success("Form updated successfully!");
       fetchForms(); // Refresh the list of forms
