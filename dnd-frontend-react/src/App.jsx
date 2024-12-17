@@ -1,15 +1,29 @@
-import './App.css'
-import Homepage from './pages/Homepage'
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Homepage from "./pages/Homepage";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
-  
   return (
-   <div>
-<div className="home">
-      <h1>Form Builder</h1>
-      <Homepage/>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Homepage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<LoginForm />} />
+        </Routes>
+      </Router>
     </div>
-   </div>
-  )
+  );
 }
 
-export default App
+export default App;

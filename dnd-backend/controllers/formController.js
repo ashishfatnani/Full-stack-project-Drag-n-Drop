@@ -109,7 +109,7 @@ const deleteForm = async (req, res) => {
     if (deletedForm.createdBy.toString() !== userId) {
       return res.status(403).send("You are not authorized to delete this form");
     }
-    await deletedForm.remove();
+    await Form.findByIdAndDelete(id);
     await User.findByIdAndUpdate(userId, { $pull: { forms: id } });
 
     res.status(200).json({ message: "Form deleted successfully." });
