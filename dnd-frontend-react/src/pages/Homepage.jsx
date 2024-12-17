@@ -14,6 +14,7 @@ import {
 } from "antd";
 import apiService from "../api/apiService";
 import { useForm } from "antd/es/form/Form";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   const [forms, setForms] = useState([]);
@@ -21,12 +22,20 @@ const Homepage = () => {
   const [editingForm, setEditingForm] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = useForm();
+  const user = apiService.getCurrentUser();
+  console.log("✌️user --->", user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchForms();
     setIsModalVisible(false);
     setEditingForm(null);
   }, []);
+
+  const handleLogout = () => {
+    apiService.logout();
+    navigate("/login");
+  };
 
   const fetchForms = async () => {
     try {
@@ -105,6 +114,11 @@ const Homepage = () => {
 
   return (
     <div>
+      <div>
+        <h2>Welcome, {user?.username || "User"}!</h2>
+
+        <button onClick={handleLogout}>Logout</button>
+      </div>
       <div className="home">
         <FormCreator
           onFormCreated={setForms}
